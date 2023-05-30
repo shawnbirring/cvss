@@ -1,4 +1,3 @@
-"use client";
 import {
   createStyles,
   Header,
@@ -13,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconChevronDown } from "@tabler/icons-react";
+import { NavLink } from "@/models";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -60,30 +60,53 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface HeaderSearchProps {
-  links: {
-    link: string;
-    label: string;
-    links: { link: string; label: string }[];
-  }[];
-}
-// interface HeaderSearchProps {
-//   links: {
-//     link: string;
-//     label: string;
-//   }[];
-// }
+const links: NavLink[] = [
+  {
+    link: "/",
+    label: "Home",
+  },
+  {
+    link: "/about",
+    label: "About",
+  },
+  {
+    link: "/services",
+    label: "Services",
+    links: [
+      {
+        link: "/services/bridal",
+        label: "Bridal",
+      },
+      {
+        link: "/services/colour",
+        label: "Colour",
+      },
+      {
+        link: "/services/cuts",
+        label: "Cuts",
+      },
+    ],
+  },
+  {
+    link: "/gallery",
+    label: "Gallery",
+  },
+  {
+    link: "/contact",
+    label: "Contact",
+  },
+];
 
-export function Navbar({ links }: HeaderSearchProps) {
+export function Navbar() {
   const [opened, { toggle }] = useDisclosure(false);
   const { classes } = useStyles();
 
   const items = links.map((link) => {
-    const menuItems = link.links?.map((item) => (
+    const menuItems = (link.links || []).map((item) => (
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
     ));
 
-    if (menuItems) {
+    if (menuItems.length > 0) {
       return (
         <Menu
           key={link.label}
@@ -120,9 +143,30 @@ export function Navbar({ links }: HeaderSearchProps) {
     );
   });
 
-  const DrawerItems = items.map((item, index) => (
-    <Menu.Item key={index}>{item}</Menu.Item>
-  ));
+  const drawerItems = links.flatMap((link) =>
+    link.links && link.links.length > 0
+      ? [
+          <Menu.Item key={link.label}>
+            <a href={link.link} className={classes.link}>
+              {link.label}
+            </a>
+          </Menu.Item>,
+          ...link.links.map((subLink) => (
+            <Menu.Item key={subLink.label}>
+              <a href={subLink.link} className={classes.link}>
+                {subLink.label}
+              </a>
+            </Menu.Item>
+          )),
+        ]
+      : [
+          <Menu.Item key={link.label}>
+            <a href={link.link} className={classes.link}>
+              {link.label}
+            </a>
+          </Menu.Item>,
+        ]
+  );
 
   return (
     <Header height={56}>
@@ -147,7 +191,7 @@ export function Navbar({ links }: HeaderSearchProps) {
         size="xs"
         position="right"
       >
-        <Menu>{DrawerItems}</Menu>
+        <Menu>{drawerItems}</Menu>
       </Drawer>
     </Header>
   );
