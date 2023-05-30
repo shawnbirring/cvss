@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Navbar";
-import { Footer } from "./components/Footer";
+import { Footer } from "@/components/Footer";
 
 export const metadata = {
   title: "Hair by Cassie",
@@ -10,22 +10,40 @@ const links = [
   {
     link: "/",
     label: "Home",
+    links: [],
   },
   {
     link: "/about",
     label: "About",
+    links: [],
   },
   {
     link: "/services",
     label: "Services",
+    links: [
+      {
+        link: "/services/bridal",
+        label: "Bridal",
+      },
+      {
+        link: "/services/colour",
+        label: "Colour",
+      },
+      {
+        link: "/services/cuts",
+        label: "Cuts",
+      },
+    ],
   },
   {
     link: "/gallery",
     label: "Gallery",
+    links: [],
   },
   {
     link: "/contact",
     label: "Contact",
+    links: [],
   },
 ];
 

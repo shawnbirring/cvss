@@ -67,6 +67,12 @@ interface HeaderSearchProps {
     links: { link: string; label: string }[];
   }[];
 }
+// interface HeaderSearchProps {
+//   links: {
+//     link: string;
+//     label: string;
+//   }[];
+// }
 
 export function Navbar({ links }: HeaderSearchProps) {
   const [opened, { toggle }] = useDisclosure(false);
