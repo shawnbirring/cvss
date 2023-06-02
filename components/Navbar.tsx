@@ -66,10 +66,6 @@ const links: NavLink[] = [
     label: "Home",
   },
   {
-    link: "/about",
-    label: "About",
-  },
-  {
     link: "/services",
     label: "Services",
     links: [
