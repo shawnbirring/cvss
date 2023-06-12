@@ -1,3 +1,4 @@
+"use client";
 import { Box, Text, TextInput, Button } from "@mantine/core";
 import { useForm, isEmail, hasLength } from "@mantine/form";
 
