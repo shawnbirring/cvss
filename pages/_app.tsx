@@ -3,8 +3,7 @@ import type { AppProps } from "next/app";
 import { MantineProvider } from "@mantine/core";
 import { Navbar, Footer } from "@/components";
 
-export default function RootLayout(props: AppProps) {
-  const { Component, pageProps } = props;
+export default function RootLayout({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
